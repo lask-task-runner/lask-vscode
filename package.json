@@ -1,6 +1,6 @@
 {
   "name": "lask",
-  "displayName": "Lask",
+  "displayName": "Lask Task Runner",
   "description": "Lask language support for Visual Studio Code",
   "publisher": "ToruIkeda",
   "version": "0.1.0",
