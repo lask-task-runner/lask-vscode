@@ -7,6 +7,7 @@
 - **Diagnostics**: syntax, name resolution, and type errors are reported as you type and on save.
 - **Hover**: hover over a name to see its inferred type and documentation.
 - **Semantic highlighting**: token colors are provided by the language server, not a static grammar.
+- **Formatting**: `Format Document` formats a `.lask` file with the same rules as `lask fmt` (Lask 0.11.0 or later). Set `editor.formatOnSave` to format on every save.
 - **Restart Language Server**: run `Lask: Restart Language Server` from the Command Palette if the server gets into a bad state (e.g. after changing the `lask` executable).
 
 ## Requirements
