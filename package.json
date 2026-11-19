@@ -39,6 +39,17 @@
         "configuration": "./language-configuration.json"
       }
     ],
+    "grammars": [
+      {
+        "language": "lask",
+        "scopeName": "source.lask",
+        "path": "./syntaxes/lask.tmLanguage.json",
+        "tokenTypes": {
+          "meta.interpolation.lask": "other",
+          "meta.interpolation.raw.lask": "other"
+        }
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "vscode-lask",
