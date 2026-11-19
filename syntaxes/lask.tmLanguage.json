@@ -1,0 +1,175 @@
+{
+  "name": "lask",
+  "scopeName": "source.lask",
+  "fileTypes": ["lask"],
+  "patterns": [{ "include": "#expression" }],
+  "repository": {
+    "expression": {
+      "patterns": [
+        { "include": "#comment" },
+        { "include": "#command-declaration" },
+        { "include": "#command" },
+        { "include": "#string" },
+        { "include": "#environment" },
+        { "include": "#keyword" },
+        { "include": "#constant" },
+        { "include": "#number" },
+        { "include": "#type" },
+        { "include": "#declaration" },
+        { "include": "#keyword-parameter" },
+        { "include": "#call" },
+        { "include": "#operator" }
+      ]
+    },
+    "command-declaration": {
+      "comment": "`schema` is a keyword only after the environment of a command declaration, on the same line (spec ch. 5).",
+      "begin": "^\\s*(?:(export|internal)\\s+)?(command)\\b(?=\\s*\\{)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.lask" },
+        "2": { "name": "keyword.other.lask" }
+      },
+      "end": "$",
+      "patterns": [
+        { "name": "keyword.other.schema.lask", "match": "(?<=[\\w)}\\]\"])(?<!\\bon)\\s+\\K\\bschema\\b" },
+        { "include": "#expression" }
+      ]
+    },
+    "comment": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.lask",
+          "begin": "//",
+          "end": "$",
+          "patterns": [{ "include": "#doc-tag" }]
+        },
+        {
+          "name": "comment.block.lask",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "patterns": [{ "include": "#comment-block-nested" }, { "include": "#doc-tag" }]
+        }
+      ]
+    },
+    "comment-block-nested": {
+      "name": "comment.block.lask",
+      "begin": "/\\*",
+      "end": "\\*/",
+      "patterns": [{ "include": "#comment-block-nested" }]
+    },
+    "doc-tag": {
+      "match": "(?<=^|\\s)(@(?:param|return|example|hidden|complete))\\b(?:\\s+(--?[a-z_][A-Za-z0-9_-]*))?",
+      "captures": {
+        "1": { "name": "storage.type.class.doc.lask" },
+        "2": { "name": "variable.parameter.lask" }
+      }
+    },
+    "string": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.lask",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.lask", "match": "\\\\(?:[\\\\\"nrt]|u\\{[0-9A-Fa-f]+\\})" },
+            { "include": "#interpolation" }
+          ]
+        },
+        { "name": "string.quoted.single.lask", "begin": "'", "end": "'" }
+      ]
+    },
+    "interpolation": {
+      "name": "meta.interpolation.lask",
+      "begin": "#\\{",
+      "end": "\\}",
+      "beginCaptures": { "0": { "name": "punctuation.section.interpolation.begin.lask" } },
+      "endCaptures": { "0": { "name": "punctuation.section.interpolation.end.lask" } },
+      "patterns": [{ "include": "#expression" }]
+    },
+    "raw-hole": {
+      "comment": "#!{e} in a command: the shell parses its value (spec 6.6).",
+      "name": "meta.interpolation.raw.lask",
+      "begin": "#!\\{",
+      "end": "\\}",
+      "beginCaptures": { "0": { "name": "punctuation.section.interpolation.begin.raw.lask" } },
+      "endCaptures": { "0": { "name": "punctuation.section.interpolation.end.raw.lask" } },
+      "patterns": [{ "include": "#expression" }]
+    },
+    "command": {
+      "comment": "$ cmd, $1 cmd, $2 cmd, $* cmd, $[env] cmd: the rest of the line is a command string.",
+      "name": "meta.command.lask",
+      "begin": "(\\$(?:[12*])?)(\\[)?",
+      "beginCaptures": {
+        "1": { "name": "keyword.operator.command.lask" },
+        "2": { "name": "punctuation.section.brackets.begin.lask" }
+      },
+      "end": "$",
+      "patterns": [
+        {
+          "begin": "(?<=\\[)",
+          "end": "\\]",
+          "endCaptures": { "0": { "name": "punctuation.section.brackets.end.lask" } },
+          "patterns": [{ "include": "#expression" }]
+        },
+        { "name": "constant.character.escape.lask", "match": "\\\\#!?\\{" },
+        { "include": "#raw-hole" },
+        { "include": "#interpolation" },
+        { "name": "string.unquoted.command.lask", "match": "[^#\\\\]+|\\\\|#(?!!?\\{)" }
+      ]
+    },
+    "environment": {
+      "name": "entity.name.tag.environment.lask",
+      "match": "#[A-Za-z0-9/:.\\-_@]+"
+    },
+    "keyword": {
+      "patterns": [
+        {
+          "name": "keyword.control.lask",
+          "match": "\\b(?:do|async|await|if|else|case|for|return|try|catch|finally)\\b"
+        },
+        {
+          "name": "keyword.other.lask",
+          "match": "\\b(?:import|export|internal|from|as|type|command)\\b"
+        },
+        {
+          "comment": "`within` is a keyword only before the brace of an access constraint (spec 3.3, 5).",
+          "name": "keyword.other.lask",
+          "match": "(?<![.\\w])within(?=\\s*\\{)"
+        },
+        {
+          "name": "keyword.other.on.lask",
+          "match": "(?<=\\})\\s*(on)\\b",
+          "captures": { "1": { "name": "keyword.other.lask" } }
+        },
+        { "name": "keyword.operator.secret.lask", "match": "!!" }
+      ]
+    },
+    "constant": {
+      "name": "constant.language.lask",
+      "match": "\\b(?:true|false|null)\\b"
+    },
+    "number": {
+      "name": "constant.numeric.lask",
+      "match": "\\b\\d+(?:\\.\\d+)?\\b"
+    },
+    "type": {
+      "name": "entity.name.type.lask",
+      "match": "\\b[A-Z][A-Za-z0-9_]*\\b"
+    },
+    "declaration": {
+      "match": "^([a-z_][A-Za-z0-9_]*)(?=\\s*(?:<[^>]*>)?\\s*\\()",
+      "captures": { "1": { "name": "entity.name.function.lask" } }
+    },
+    "keyword-parameter": {
+      "name": "variable.parameter.lask",
+      "match": "--[a-z_][A-Za-z0-9_]*"
+    },
+    "call": {
+      "match": "\\b([a-z_][A-Za-z0-9_]*)(?=\\()",
+      "captures": { "1": { "name": "support.function.lask" } }
+    },
+    "operator": {
+      "name": "keyword.operator.lask",
+      "match": "\\|>|<\\||>>|<<|->|==|!=|<=|>=|&&|\\|\\||\\.\\.\\.|[=+\\-*/<>|?\\\\]"
+    }
+  }
+}
