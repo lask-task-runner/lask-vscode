@@ -6,7 +6,8 @@
 
 - **Diagnostics**: syntax, name resolution, and type errors are reported as you type and on save.
 - **Hover**: hover over a name to see its inferred type and documentation.
-- **Semantic highlighting**: token colors are provided by the language server, not a static grammar.
+- **Semantic highlighting**: token colors are provided by the language server, on top of a TextMate grammar that colors a file before the server answers.
+- **Comments and brackets**: `Toggle Line Comment` (`//`) and `Toggle Block Comment` (`/* */`) work, brackets and quotes close automatically, and brackets inside comments and strings are not colorized or matched.
 - **Formatting**: `Format Document` formats a `.lask` file with the same rules as `lask fmt` (Lask 0.11.0 or later). Set `editor.formatOnSave` to format on every save.
 - **Restart Language Server**: run `Lask: Restart Language Server` from the Command Palette if the server gets into a bad state (e.g. after changing the `lask` executable).
 
@@ -42,4 +43,4 @@ npm ci
 npm run vscode:package
 ```
 
-Generated package: `vscode-lask-<version>.vsix`
+Generated package: `lask-<version>.vsix`
