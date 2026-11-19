@@ -35,7 +35,8 @@
         ],
         "extensions": [
           ".lask"
-        ]
+        ],
+        "configuration": "./language-configuration.json"
       }
     ],
     "configuration": {
