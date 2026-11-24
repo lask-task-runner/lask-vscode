@@ -1,4 +1,4 @@
 node_modules
-vscode-lask-*.vsix
+*.vsix
 dist
 .env
