@@ -3,7 +3,7 @@
   "displayName": "Lask Task Runner",
   "description": "Lask language support for Visual Studio Code",
   "publisher": "ToruIkeda",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "engines": {
     "vscode": "^1.70.0"
   },
