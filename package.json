@@ -81,12 +81,14 @@
     "vscode-languageclient": "^8.0.2"
   },
   "devDependencies": {
-    "@vscode/vsce": "^3.9.2",
+    "@vscode/vsce": "^4.1.1",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
   },
   "allowScripts": {
-    "@vscode/vsce-sign@2.0.5": true,
-    "keytar@7.9.0": true
+    "@vscode/vsce-sign@2.1.1": true
+  },
+  "overrides": {
+    "minimatch@^10": "^11.0.1"
   }
 }
