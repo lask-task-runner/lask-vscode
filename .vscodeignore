@@ -1,1 +1,10 @@
+# The extension is bundled by webpack into dist/extension.js,
+# so sources and dependencies are not shipped.
 .env
+.github/**
+.gitignore
+node_modules/**
+src/**
+webpack.config.js
+dist/**/*.map
+*.vsix
