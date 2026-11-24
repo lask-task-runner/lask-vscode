@@ -6,6 +6,7 @@
 
 - **Diagnostics**: syntax, name resolution, and type errors are reported as you type and on save.
 - **Hover**: hover over a name to see its inferred type and documentation.
+- **Completion**: offers what may be written at the cursor — the types in scope inside a type annotation, the access constraints after `within`, and the fields of an access constraint or of run options not yet written (Lask 0.19.0 or later; earlier versions offer every name in scope).
 - **Semantic highlighting**: token colors are provided by the language server, on top of a TextMate grammar that colors a file before the server answers.
 - **Comments and brackets**: `Toggle Line Comment` (`//`) and `Toggle Block Comment` (`/* */`) work, brackets and quotes close automatically, and brackets inside comments and strings are not colorized or matched.
 - **Formatting**: `Format Document` formats a `.lask` file with the same rules as `lask fmt` (Lask 0.11.0 or later). Set `editor.formatOnSave` to format on every save.
